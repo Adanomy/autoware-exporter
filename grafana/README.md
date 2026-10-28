@@ -5,8 +5,9 @@ Import dashboard ID **[25976](https://grafana.com/grafana/dashboards/25976)** or
 Import** and choose any folder. Select a **Datasource**, **Job**, **Instance**,
 and **Vehicles**. Jobs are discovered from `autoware_exporter_build_info`;
 no scrape job name, datasource UID, vehicle name, or vehicle count is prescribed.
-The default All selection expands only the discovered Autoware jobs. Instance
-and job labels distinguish identically named vehicles from different exporters.
+The default All selection expands only the discovered Autoware jobs. Vehicle
+panels show vehicle names only. Use the Job and Instance filters when names
+overlap between exporters; underlying series and table joins retain both labels.
 
 [Full dashboard preview](../docs/images/dashboard-full.png).
 

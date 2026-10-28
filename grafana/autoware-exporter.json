@@ -117,12 +117,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -131,7 +131,7 @@
           "expr": "(sum by (job,instance,vehicle) ((autoware_operation_mode{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"unknown\"} * 0) or (autoware_operation_mode{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"stop\"} * 1) or (autoware_operation_mode{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"autonomous\"} * 2) or (autoware_operation_mode{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"local\"} * 3) or (autoware_operation_mode{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"remote\"} * 4))) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -207,12 +207,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -221,7 +221,7 @@
           "expr": "(autoware_control_enabled{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -307,12 +307,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -321,7 +321,7 @@
           "expr": "(sum by (job,instance,vehicle) ((autoware_localization_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_localization_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"uninitialized\"} * 1) or (autoware_localization_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"initializing\"} * 2) or (autoware_localization_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"initialized\"} * 3))) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -412,12 +412,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -426,7 +426,7 @@
           "expr": "(sum by (job,instance,vehicle) ((autoware_route_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_route_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unset\"} * 1) or (autoware_route_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"set\"} * 2) or (autoware_route_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"arrived\"} * 3) or (autoware_route_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"changing\"} * 4))) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -512,12 +512,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -526,7 +526,7 @@
           "expr": "(sum by (job,instance,vehicle) ((autoware_motion_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_motion_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"stopped\"} * 1) or (autoware_motion_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"starting\"} * 2) or (autoware_motion_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"moving\"} * 3))) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -602,12 +602,12 @@
           "values": false
         },
         "showPercentChange": false,
-        "text": {
-          "titleSize": 13,
-          "valueSize": 20
-        },
         "textMode": "value_and_name",
-        "wideLayout": true
+        "wideLayout": false,
+        "text": {
+          "titleSize": 14,
+          "valueSize": 22
+        }
       },
       "pluginVersion": "12.4.1",
       "targets": [
@@ -616,12 +616,12 @@
           "expr": "((group by (job,instance,vehicle) (autoware_diagnostic_level{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) or on(job,instance,vehicle) (0 * autoware_vehicle_info{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}))) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
       ],
-      "title": "Diagnostic data available",
+      "title": "Diagnostics",
       "type": "stat"
     },
     {
@@ -644,7 +644,8 @@
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "minWidth": 100
           },
           "decimals": 3,
           "mappings": [],
@@ -803,7 +804,7 @@
           "expr": "(autoware_diagnostic_level{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} > 0) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "table",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -816,7 +817,9 @@
             "excludeByName": {
               "Time": true,
               "__name__": true,
-              "node": true
+              "node": true,
+              "instance": true,
+              "job": true
             },
             "indexByName": {
               "Value": 1,
@@ -857,7 +860,8 @@
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "minWidth": 100
           },
           "decimals": 3,
           "mappings": [],
@@ -881,12 +885,12 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "^(entity.*measure|Vehicle.*job)$"
+              "options": "^(entity.*|source.*|Vehicle.*)$"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 360
+                "value": 180
               }
             ]
           },
@@ -1171,6 +1175,28 @@
                 "value": false
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Vehicle"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "regex",
+                    "options": {
+                      "pattern": "^(.*) · [^·]* · [^·]*$",
+                      "result": {
+                        "text": "$1"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1200,7 +1226,7 @@
           "expr": "(label_join((label_replace((sum by (job,instance,vehicle) ((autoware_mrm_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_mrm_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"normal\"} * 1) or (autoware_mrm_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"operating\"} * 2) or (autoware_mrm_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"succeeded\"} * 3) or (autoware_mrm_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"failed\"} * 4))), \"measure\", \"MRM state\", \"__name__\", \".*\") or label_replace((sum by (job,instance,vehicle) ((autoware_mrm_behavior{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",behavior=\"unknown\"} * 0) or (autoware_mrm_behavior{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",behavior=\"none\"} * 1) or (autoware_mrm_behavior{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",behavior=\"emergency_stop\"} * 2) or (autoware_mrm_behavior{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",behavior=\"comfortable_stop\"} * 3) or (autoware_mrm_behavior{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",behavior=\"pull_over\"} * 4))), \"measure\", \"MRM behavior\", \"__name__\", \".*\") or label_replace((autoware_hazard_level{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Hazard level\", \"__name__\", \".*\") or label_replace((autoware_emergency_command{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Emergency cmd.\", \"__name__\", \".*\") or label_replace((autoware_emergency_holding{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Emergency hold\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "table",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -1229,7 +1255,7 @@
               "entity\\measure": 0
             },
             "renameByName": {
-              "entity\\measure": "Vehicle · instance · job"
+              "entity\\measure": "Vehicle"
             }
           }
         }
@@ -1361,7 +1387,7 @@
           "expr": "autoware_vehicle_speed_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · measured speed",
+          "legendFormat": "{{vehicle}} · measured speed",
           "range": true,
           "refId": "A"
         },
@@ -1370,7 +1396,7 @@
           "expr": "autoware_command_velocity_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · commanded",
+          "legendFormat": "{{vehicle}} · commanded",
           "range": true,
           "refId": "B"
         }
@@ -1490,7 +1516,7 @@
           "expr": "autoware_velocity_limit_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · {{scope}}",
+          "legendFormat": "{{vehicle}} · {{scope}}",
           "range": true,
           "refId": "A"
         }
@@ -1518,7 +1544,8 @@
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "minWidth": 100
           },
           "decimals": 3,
           "mappings": [],
@@ -1651,7 +1678,7 @@
           "expr": "(autoware_planning_velocity_factor_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} or on(job,instance,vehicle,index,behavior,status) (autoware_planning_velocity_factor{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} * NaN)) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "table",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -1664,7 +1691,9 @@
             "excludeByName": {
               "Time": true,
               "__name__": true,
-              "node": true
+              "node": true,
+              "instance": true,
+              "job": true
             },
             "indexByName": {
               "Value": 3,
@@ -1771,7 +1800,7 @@
           "expr": "(max by (job,instance,vehicle) (autoware_topic_data_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",topic=~\".*/api/planning/velocity_factors\"})) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
           "format": "time_series",
           "instant": true,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+          "legendFormat": "{{vehicle}}",
           "range": false,
           "refId": "A"
         }
@@ -1873,7 +1902,7 @@
           "expr": "autoware_pipeline_latency_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · pipeline",
+          "legendFormat": "{{vehicle}} · pipeline",
           "range": true,
           "refId": "A"
         }
@@ -1974,7 +2003,7 @@
           "expr": "autoware_control_lateral_error_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · lateral",
+          "legendFormat": "{{vehicle}} · lateral",
           "range": true,
           "refId": "A"
         },
@@ -1983,7 +2012,7 @@
           "expr": "autoware_control_longitudinal_error_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · longitudinal",
+          "legendFormat": "{{vehicle}} · longitudinal",
           "range": true,
           "refId": "B"
         }
@@ -2113,7 +2142,7 @@
               "expr": "autoware_vehicle_steering_angle_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · measured",
+              "legendFormat": "{{vehicle}} · measured",
               "range": true,
               "refId": "A"
             },
@@ -2122,7 +2151,7 @@
               "expr": "autoware_command_steering_angle_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · commanded",
+              "legendFormat": "{{vehicle}} · commanded",
               "range": true,
               "refId": "B"
             }
@@ -2242,7 +2271,7 @@
               "expr": "autoware_vehicle_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · measured",
+              "legendFormat": "{{vehicle}} · measured",
               "range": true,
               "refId": "A"
             },
@@ -2251,7 +2280,7 @@
               "expr": "autoware_command_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · commanded",
+              "legendFormat": "{{vehicle}} · commanded",
               "range": true,
               "refId": "B"
             }
@@ -2279,7 +2308,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -2303,12 +2333,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -2443,6 +2473,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -2472,7 +2524,7 @@
               "expr": "(label_join((label_replace((autoware_vehicle_speed_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Speed\", \"__name__\", \".*\") or label_replace((autoware_command_velocity_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Command velocity\", \"__name__\", \".*\") or label_replace((autoware_vehicle_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}), \"measure\", \"Acceleration\", \"__name__\", \".*\") or label_replace((autoware_command_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Command accel.\", \"__name__\", \".*\") or label_replace((autoware_vehicle_steering_angle_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Steering\", \"__name__\", \".*\") or label_replace((autoware_command_steering_angle_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Command steering\", \"__name__\", \".*\") or label_replace((autoware_command_steering_rate_radians_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Steering rate\", \"__name__\", \".*\") or label_replace((autoware_command_jerk_meters_per_second_cubed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Command jerk\", \"__name__\", \".*\") or label_replace((autoware_command_throttle_ratio{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Throttle\", \"__name__\", \".*\") or label_replace((autoware_command_brake_ratio{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Brake\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -2506,7 +2558,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -2533,7 +2585,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -2557,12 +2610,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -2807,6 +2860,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -2836,7 +2911,7 @@
               "expr": "(label_join((label_replace((autoware_operation_mode_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"stop\"}), \"measure\", \"STOP available\", \"__name__\", \".*\") or label_replace((autoware_operation_mode_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"autonomous\"}), \"measure\", \"Auto available\", \"__name__\", \".*\") or label_replace((autoware_operation_mode_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"local\"}), \"measure\", \"Local available\", \"__name__\", \".*\") or label_replace((autoware_operation_mode_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",mode=\"remote\"}), \"measure\", \"Remote available\", \"__name__\", \".*\") or label_replace((autoware_operation_mode_in_transition{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Transition\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -2865,7 +2940,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -2892,7 +2967,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -2916,12 +2992,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -3109,6 +3185,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -3138,7 +3236,7 @@
               "expr": "(label_join((label_replace((sum by (job,instance,vehicle) ((autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"unknown\"} * 0) or (autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"neutral\"} * 1) or (autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"drive\"} * 2) or (autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"reverse\"} * 3) or (autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"park\"} * 4) or (autoware_vehicle_gear{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",gear=\"low\"} * 5))), \"measure\", \"Gear\", \"__name__\", \".*\") or label_replace((sum by (job,instance,vehicle) ((autoware_vehicle_turn_indicator{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_vehicle_turn_indicator{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"disabled\"} * 1) or (autoware_vehicle_turn_indicator{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"left\"} * 2) or (autoware_vehicle_turn_indicator{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"right\"} * 3))), \"measure\", \"Turn indicators\", \"__name__\", \".*\") or label_replace((sum by (job,instance,vehicle) ((autoware_vehicle_hazard_lights{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"unknown\"} * 0) or (autoware_vehicle_hazard_lights{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"disabled\"} * 1) or (autoware_vehicle_hazard_lights{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",state=\"enabled\"} * 2))), \"measure\", \"Hazard lights\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -3165,7 +3263,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -3192,7 +3290,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -3216,12 +3315,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -3308,6 +3407,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -3337,7 +3458,7 @@
               "expr": "(label_join((label_replace((autoware_control_lateral_error_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Lateral error\", \"__name__\", \".*\") or label_replace((autoware_control_longitudinal_error_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Long. position error\", \"__name__\", \".*\") or label_replace((autoware_control_heading_error_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Heading error\", \"__name__\", \".*\") or label_replace((autoware_control_velocity_error_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Velocity error\", \"__name__\", \".*\") or label_replace((autoware_control_jerk_meters_per_second_cubed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"longitudinal\"}), \"measure\", \"Long. jerk\", \"__name__\", \".*\") or label_replace((autoware_control_jerk_meters_per_second_cubed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"lateral\"}), \"measure\", \"Lateral jerk\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -3367,7 +3488,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -3500,7 +3621,7 @@
               "expr": "autoware_localization_position_stddev_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · {{source}}",
+              "legendFormat": "{{vehicle}} · {{source}}",
               "range": true,
               "refId": "A"
             }
@@ -3620,7 +3741,7 @@
               "expr": "autoware_localization_position_stddev_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"y\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · {{source}}",
+              "legendFormat": "{{vehicle}} · {{source}}",
               "range": true,
               "refId": "A"
             }
@@ -3722,7 +3843,7 @@
               "expr": "autoware_localization_ndt_execution_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": true,
               "refId": "A"
             }
@@ -3750,7 +3871,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -3774,12 +3896,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -3850,6 +3972,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -3879,7 +4023,7 @@
               "expr": "(label_join((label_replace((autoware_localization_ndt_score{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"transform_probability\"}), \"measure\", \"Transform score\", \"__name__\", \".*\") or label_replace((autoware_localization_ndt_score{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"nearest_voxel_likelihood\"}), \"measure\", \"Voxel score\", \"__name__\", \".*\") or label_replace((autoware_localization_ndt_iterations{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Iterations\", \"__name__\", \".*\") or label_replace((autoware_localization_ndt_execution_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Execution\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -3907,7 +4051,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -3934,7 +4078,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -3958,7 +4103,7 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
@@ -4002,6 +4147,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle · source"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -4031,7 +4198,7 @@
               "expr": "(label_join((label_replace((autoware_localization_position_stddev_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"z\"}), \"measure\", \"Z stddev\", \"__name__\", \".*\") or label_replace((autoware_localization_yaw_stddev_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Yaw stddev\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"source\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4057,7 +4224,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · source · instance · job"
+                  "entity\\measure": "Vehicle · source"
                 }
               }
             }
@@ -4145,7 +4312,7 @@
               "expr": "(autoware_route_remaining_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4220,7 +4387,7 @@
               "expr": "(autoware_route_estimated_remaining_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4340,7 +4507,7 @@
               "expr": "autoware_centerline_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"signed\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · signed",
+              "legendFormat": "{{vehicle}} · signed",
               "range": true,
               "refId": "A"
             },
@@ -4349,7 +4516,7 @@
               "expr": "autoware_centerline_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"absolute\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · absolute",
+              "legendFormat": "{{vehicle}} · absolute",
               "range": true,
               "refId": "B"
             }
@@ -4377,7 +4544,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -4401,12 +4569,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -4493,6 +4661,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -4522,7 +4712,7 @@
               "expr": "(label_join((label_replace((autoware_goal_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"longitudinal\",kind=\"signed\"}), \"measure\", \"Longitudinal\", \"__name__\", \".*\") or label_replace((autoware_goal_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"longitudinal\",kind=\"absolute\"}), \"measure\", \"Abs long.\", \"__name__\", \".*\") or label_replace((autoware_goal_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"lateral\",kind=\"signed\"}), \"measure\", \"Lateral\", \"__name__\", \".*\") or label_replace((autoware_goal_deviation_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"lateral\",kind=\"absolute\"}), \"measure\", \"Abs lateral\", \"__name__\", \".*\") or label_replace((autoware_goal_yaw_deviation_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"signed\"}), \"measure\", \"Yaw\", \"__name__\", \".*\") or label_replace((autoware_goal_yaw_deviation_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"absolute\"}), \"measure\", \"Abs yaw\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4552,7 +4742,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -4593,7 +4783,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -4617,7 +4808,7 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
@@ -4665,12 +4856,34 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
                     "value": 800
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle · factor · behavior · status · direction"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -4702,7 +4915,7 @@
               "expr": "(label_join((label_replace(((autoware_planning_steering_factor_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",point=\"start\"} or on(job,instance,vehicle,index,behavior,status,direction) (autoware_planning_steering_factor{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} * NaN))), \"measure\", \"Start distance\", \"__name__\", \".*\") or label_replace(((autoware_planning_steering_factor_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",point=\"end\"} or on(job,instance,vehicle,index,behavior,status,direction) (autoware_planning_steering_factor{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} * NaN))), \"measure\", \"End distance\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"index\", \"behavior\", \"status\", \"direction\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4728,7 +4941,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · factor · behavior · status · direction · instance · job"
+                  "entity\\measure": "Vehicle · factor · behavior · status · direction"
                 }
               }
             }
@@ -4755,7 +4968,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -4779,12 +4993,34 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*statistic|Vehicle · quantity.*)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
                     "value": 650
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle · quantity [unit]"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -4816,7 +5052,7 @@
               "expr": "(label_join((label_replace(autoware_planning_stability_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"stability\"}, \"quantity\", \"Stability [m]\", \"__name__\", \".*\") or label_replace(autoware_planning_stability_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",kind=\"frechet\"}, \"quantity\", \"Frechet distance [m]\", \"__name__\", \".*\") or label_replace(autoware_planning_trajectory_length_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}, \"quantity\", \"Trajectory length [m]\", \"__name__\", \".*\") or label_replace(autoware_planning_trajectory_duration_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}, \"quantity\", \"Trajectory duration [s]\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"quantity\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4843,7 +5079,7 @@
                   "min": 1
                 },
                 "renameByName": {
-                  "entity\\statistic": "Vehicle · quantity [unit] · instance · job"
+                  "entity\\statistic": "Vehicle · quantity [unit]"
                 }
               }
             }
@@ -4917,7 +5153,7 @@
               "expr": "(autoware_planning_changes{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",signal=\"steering\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -4992,7 +5228,7 @@
               "expr": "(autoware_planning_changes{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",signal=\"blinker\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -5108,7 +5344,7 @@
               "expr": "autoware_perception_objects{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": true,
               "refId": "A"
             }
@@ -5247,7 +5483,7 @@
               "expr": "autoware_perception_latency_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",stage=\"measurement_to_tracked\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · tracking",
+              "legendFormat": "{{vehicle}} · tracking",
               "range": true,
               "refId": "A"
             },
@@ -5256,7 +5492,7 @@
               "expr": "autoware_perception_latency_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",stage=\"prediction\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · prediction",
+              "legendFormat": "{{vehicle}} · prediction",
               "range": true,
               "refId": "B"
             },
@@ -5265,7 +5501,7 @@
               "expr": "autoware_perception_latency_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",stage=\"total\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}} · total",
+              "legendFormat": "{{vehicle}} · total",
               "range": true,
               "refId": "C"
             }
@@ -5293,7 +5529,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -5402,7 +5639,7 @@
               "expr": "(autoware_perception_objects_by_class{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -5415,7 +5652,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 2,
@@ -5456,7 +5695,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -5581,7 +5821,7 @@
               "expr": "(autoware_traffic_signal_confidence_ratio{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} or on(job,instance,vehicle,group,index,color,shape,status) (autoware_traffic_signal{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} * NaN)) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -5594,7 +5834,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 6,
@@ -5704,7 +5946,7 @@
               "expr": "(autoware_vehicle_energy_ratio{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -5732,7 +5974,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -5756,12 +5999,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -5841,6 +6084,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -5870,7 +6135,7 @@
               "expr": "(label_join((label_replace((autoware_planning_time_to_collision_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",statistic=\"worst\"}), \"measure\", \"Predicted TTC\", \"__name__\", \".*\") or label_replace((autoware_aeb_rss_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Required RSS\", \"__name__\", \".*\") or label_replace((autoware_aeb_decision{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",decision=\"brake\"}), \"measure\", \"AEB decision\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -5897,7 +6162,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -5924,7 +6189,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -5948,12 +6214,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -6060,6 +6326,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -6089,7 +6377,7 @@
               "expr": "(label_join((label_replace((autoware_hazard_flag{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",flag=\"emergency\"}), \"measure\", \"Hazard emergency\", \"__name__\", \".*\") or label_replace((autoware_hazard_flag{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",flag=\"emergency_holding\"}), \"measure\", \"Hazard hold\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6115,7 +6403,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -6142,7 +6430,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -6239,7 +6528,7 @@
               "expr": "(autoware_door_state{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6253,7 +6542,9 @@
                   "Time": true,
                   "Value": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "index": 1,
@@ -6370,7 +6661,7 @@
               "expr": "(autoware_ros_context_up{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6398,7 +6689,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -6422,12 +6714,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -6502,6 +6794,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -6531,7 +6845,7 @@
               "expr": "(label_join((label_replace((sum by (job,instance,vehicle) (autoware_topic_data_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"})), \"measure\", \"Usable\", \"__name__\", \".*\") or label_replace((count by (job,instance,vehicle) (autoware_topic_subscribed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"})), \"measure\", \"Configured\", \"__name__\", \".*\") or label_replace((sum by (job,instance,vehicle) (1 - autoware_topic_data_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"})), \"measure\", \"Not reporting\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6558,7 +6872,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -6585,7 +6899,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -6694,7 +7009,7 @@
               "expr": "(label_replace(((autoware_topic_subscribed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 0) and on(job,instance,vehicle) (autoware_ros_context_up{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1)), \"reason\", \"Not subscribed\", \"topic\", \".*\") or label_replace((((autoware_topic_publishers{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 0) and on(job,instance,vehicle,topic) (autoware_topic_subscribed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1)) and on(job,instance,vehicle) (autoware_ros_context_up{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1)), \"reason\", \"No publisher\", \"topic\", \".*\") or label_replace(((((autoware_topic_data_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 0) and on(job,instance,vehicle,topic) (autoware_topic_subscribed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1)) and on(job,instance,vehicle,topic) (autoware_topic_publishers{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} > 0)) and on(job,instance,vehicle) (autoware_ros_context_up{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} == 1)), \"reason\", \"No current message\", \"topic\", \".*\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6708,7 +7023,9 @@
                   "Time": true,
                   "Value": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "instance": 3,
@@ -6823,7 +7140,7 @@
               "expr": "sum by (job,instance,vehicle) (rate(autoware_topic_receive_errors_total{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[$__rate_interval]))",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": true,
               "refId": "A"
             }
@@ -6851,7 +7168,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -6972,7 +7290,7 @@
               "expr": "(autoware_processing_duration_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -6985,7 +7303,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 2,
@@ -7099,7 +7419,7 @@
               "expr": "deriv(autoware_ros_time_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[1m])",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": true,
               "refId": "A"
             }
@@ -7174,7 +7494,7 @@
               "expr": "(changes(autoware_heartbeat_sequence{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[1m]) and (count_over_time(autoware_heartbeat_sequence{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[1m]) >= 2)) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "time_series",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -7202,7 +7522,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -7323,7 +7644,7 @@
               "expr": "(autoware_diagnostics{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -7336,7 +7657,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 3,
@@ -7379,7 +7702,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -7408,7 +7732,7 @@
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 620
+                    "value": 520
                   }
                 ]
               },
@@ -7491,6 +7815,28 @@
                     "value": "ops"
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle · topic"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -7520,7 +7866,7 @@
               "expr": "(label_join((label_replace((autoware_topic_subscribed{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Subscribed\", \"__name__\", \".*\") or label_replace((autoware_topic_publishers{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Publishers\", \"__name__\", \".*\") or label_replace((autoware_topic_data_available{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Data available\", \"__name__\", \".*\") or label_replace((autoware_topic_last_received_age_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Message age\", \"__name__\", \".*\") or label_replace((autoware_topic_last_received_timestamp_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"} * 1000), \"measure\", \"Last received\", \"__name__\", \".*\") or label_replace((autoware_topic_messages_received_total{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Messages total\", \"__name__\", \".*\") or label_replace((rate(autoware_topic_messages_received_total{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[$__rate_interval])), \"measure\", \"Messages/s\", \"__name__\", \".*\") or label_replace((autoware_topic_receive_errors_total{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Errors total\", \"__name__\", \".*\") or label_replace((rate(autoware_topic_receive_errors_total{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}[$__rate_interval])), \"measure\", \"Errors/s\", \"__name__\", \".*\")), \"source\", \" · \", \"vehicle\", \"topic\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -7553,7 +7899,7 @@
                   "source\\measure": 0
                 },
                 "renameByName": {
-                  "source\\measure": "Vehicle · topic · instance · job"
+                  "source\\measure": "Vehicle · topic"
                 }
               }
             }
@@ -7594,7 +7940,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -7618,12 +7965,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -7698,6 +8045,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -7727,7 +8096,7 @@
               "expr": "(label_join((label_replace((autoware_vehicle_position_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}), \"measure\", \"X\", \"__name__\", \".*\") or label_replace((autoware_vehicle_position_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"y\"}), \"measure\", \"Y\", \"__name__\", \".*\") or label_replace((autoware_vehicle_position_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"z\"}), \"measure\", \"Z\", \"__name__\", \".*\") or label_replace((autoware_vehicle_yaw_radians{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Yaw\", \"__name__\", \".*\") or label_replace((autoware_vehicle_yaw_rate_radians_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}), \"measure\", \"Yaw rate\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -7756,7 +8125,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -7783,7 +8152,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -7807,12 +8177,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -7935,6 +8305,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -7964,7 +8356,7 @@
               "expr": "(label_join((label_replace((autoware_vehicle_velocity_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}), \"measure\", \"Velocity X\", \"__name__\", \".*\") or label_replace((autoware_vehicle_velocity_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"y\"}), \"measure\", \"Velocity Y\", \"__name__\", \".*\") or label_replace((autoware_vehicle_velocity_meters_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"z\"}), \"measure\", \"Velocity Z\", \"__name__\", \".*\") or label_replace((autoware_vehicle_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}), \"measure\", \"Acceleration X\", \"__name__\", \".*\") or label_replace((autoware_vehicle_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"y\"}), \"measure\", \"Acceleration Y\", \"__name__\", \".*\") or label_replace((autoware_vehicle_acceleration_meters_per_second_squared{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"z\"}), \"measure\", \"Acceleration Z\", \"__name__\", \".*\") or label_replace((autoware_vehicle_angular_velocity_radians_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"x\"}), \"measure\", \"Angular velocity X\", \"__name__\", \".*\") or label_replace((autoware_vehicle_angular_velocity_radians_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"y\"}), \"measure\", \"Angular velocity Y\", \"__name__\", \".*\") or label_replace((autoware_vehicle_angular_velocity_radians_per_second{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",axis=\"z\"}), \"measure\", \"Angular velocity Z\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -7997,7 +8389,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -8024,7 +8416,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -8048,12 +8441,12 @@
               {
                 "matcher": {
                   "id": "byRegexp",
-                  "options": "^(entity.*measure|Vehicle.*job)$"
+                  "options": "^(entity.*|source.*|Vehicle.*)$"
                 },
                 "properties": [
                   {
                     "id": "custom.width",
-                    "value": 360
+                    "value": 180
                   }
                 ]
               },
@@ -8156,6 +8549,28 @@
                     "value": false
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Vehicle"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "type": "regex",
+                        "options": {
+                          "pattern": "^(.*) · [^·]* · [^·]*$",
+                          "result": {
+                            "text": "$1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -8185,7 +8600,7 @@
               "expr": "(label_join((label_replace((autoware_boundary_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"left\",boundary=\"lane\"}), \"measure\", \"Left lane\", \"__name__\", \".*\") or label_replace((autoware_boundary_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"right\",boundary=\"lane\"}), \"measure\", \"Right lane\", \"__name__\", \".*\") or label_replace((autoware_boundary_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"left\",boundary=\"uncrossable\"}), \"measure\", \"Left uncrossable\", \"__name__\", \".*\") or label_replace((autoware_boundary_distance_meters{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"right\",boundary=\"uncrossable\"}), \"measure\", \"Right uncrossable\", \"__name__\", \".*\") or label_replace((autoware_boundary_crossings{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"left\",boundary=\"uncrossable\"}), \"measure\", \"Left crossings\", \"__name__\", \".*\") or label_replace((autoware_boundary_crossings{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\",side=\"right\",boundary=\"uncrossable\"}), \"measure\", \"Right crossings\", \"__name__\", \".*\")), \"entity\", \" · \", \"vehicle\", \"instance\", \"job\")) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -8215,7 +8630,7 @@
                   "entity\\measure": 0
                 },
                 "renameByName": {
-                  "entity\\measure": "Vehicle · instance · job"
+                  "entity\\measure": "Vehicle"
                 }
               }
             }
@@ -8242,7 +8657,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -8351,7 +8767,7 @@
               "expr": "(autoware_topic_source_timestamp_seconds{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -8364,7 +8780,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 3,
@@ -8407,7 +8825,8 @@
                 "footer": {
                   "reducers": []
                 },
-                "inspect": false
+                "inspect": false,
+                "minWidth": 100
               },
               "decimals": 3,
               "mappings": [],
@@ -8576,7 +8995,7 @@
               "expr": "(autoware_diagnostic_level{job=~\"${job:regex}\",instance=~\"${instance:regex}\",vehicle=~\"${vehicle:regex}\"}) and on(job,instance) (up{job=~\"${job:regex}\",instance=~\"${instance:regex}\"} == 1)",
               "format": "table",
               "instant": true,
-              "legendFormat": "{{vehicle}} · {{instance}} · {{job}}",
+              "legendFormat": "{{vehicle}}",
               "range": false,
               "refId": "A"
             }
@@ -8589,7 +9008,9 @@
                 "excludeByName": {
                   "Time": true,
                   "__name__": true,
-                  "node": true
+                  "node": true,
+                  "instance": true,
+                  "job": true
                 },
                 "indexByName": {
                   "Value": 1,
@@ -8646,7 +9067,8 @@
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "minWidth": 100
           },
           "decimals": 2,
           "mappings": [],
