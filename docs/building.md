@@ -33,7 +33,9 @@ docker build --build-arg ROS_IMAGE=your-autoware-image:humble \
 The image must contain ROS 2 and the message type-support libraries needed by
 your selected sources. Missing optional packages disable only their own sources.
 The entrypoint sources the image's ROS/Autoware environment before executing
-the exporter. The final image runs as UID/GID 65532.
+the exporter. The final image runs as UID/GID 65532 and uses the middleware's
+default DDS configuration. To provide your own Cyclone DDS configuration, mount
+it at a readable path and set `CYCLONEDDS_URI` with `docker run -e` or Compose.
 
 ## Testing
 
@@ -63,6 +65,8 @@ inside [the isolated compatibility containers](../tests/compatibility/README.md)
 Version tags use `vMAJOR.MINOR.PATCH`. CI builds Linux amd64/arm64 artifacts for
 Humble and Jazzy, verifies reproducibility, and publishes checksummed archives,
 the Grafana dashboard, build metadata, and matching container images.
+Branch CI also builds both ROS images and checks ROS initialization as a
+non-root user with a read-only filesystem, isolated from existing ROS graphs.
 
 Archives contain a native binary, its build metadata, the license, and usage
 documentation. They need the matching ROS/Autoware environment; the recorded

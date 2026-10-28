@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import time
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -118,6 +119,27 @@ def target_metadata(metadata, ros, arch, image):
     return dict(metadata, target={"os": "linux", "arch": arch, "ros_distro": ros, "ros_image": image})
 
 
+def verify_container(image_name):
+    container = command(
+        "docker", "run", "-d", "--network", "none", "--read-only", "--cap-drop", "ALL",
+        "--security-opt", "no-new-privileges:true", "--tmpfs", "/tmp:rw,nosuid,nodev,noexec,size=64m",
+        "-e", "ROS_LOCALHOST_ONLY=1", image_name, "--vehicle=release_check:200",
+    )
+    try:
+        for _ in range(40):
+            result = subprocess.run(
+                ["docker", "exec", container, "curl", "--fail", "--silent", "--max-time", "2",
+                 "http://127.0.0.1:9841/metrics"], capture_output=True, text=True,
+            )
+            if result.returncode == 0 and 'autoware_ros_context_up{vehicle="release_check"} 1' in result.stdout.splitlines():
+                return
+            time.sleep(0.5)
+        logs = subprocess.run(["docker", "logs", "--tail", "30", container], capture_output=True, text=True)
+        raise ValueError(f"native container did not initialize ROS: {logs.stdout}{logs.stderr}")
+    finally:
+        subprocess.run(["docker", "rm", "-f", container], stdout=subprocess.DEVNULL, check=True)
+
+
 def build_binary(metadata, image_name, fresh_cache=False):
     target = metadata["target"]
     args = ["docker", "buildx", "build", "--load", "--platform", f"linux/{target['arch']}",
@@ -135,6 +157,7 @@ def build_binary(metadata, image_name, fresh_cache=False):
     expected = f"autoware-exporter {metadata['version']} revision={metadata['revision']} go={metadata['go_version']} native_ros2=true"
     if version != expected:
         raise ValueError(f"native release binary reports unexpected build metadata: {version}")
+    verify_container(image_name)
     container = command("docker", "create", image_name)
     try:
         with tempfile.TemporaryDirectory(prefix="autoware-exporter-binary-") as temporary:

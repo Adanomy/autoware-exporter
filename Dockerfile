@@ -37,7 +37,7 @@ COPY --from=build /out/autoware-exporter /usr/local/bin/autoware-exporter
 COPY scripts/entrypoint.sh /usr/local/bin/autoware-exporter-entrypoint
 RUN chmod 0755 /usr/local/bin/autoware-exporter /usr/local/bin/autoware-exporter-entrypoint
 WORKDIR /tmp
-ENV HOME=/tmp
+ENV HOME=/tmp CYCLONEDDS_URI=""
 USER 65532:65532
 EXPOSE 9841
 ENTRYPOINT ["/usr/local/bin/autoware-exporter-entrypoint"]

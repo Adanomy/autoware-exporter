@@ -21,7 +21,8 @@ for prefix in "$ros_prefix" /opt/autoware /opt/autoware/*; do
   [[ -d "$prefix" ]] || continue
   for include in "$prefix/include" "$prefix"/include/*; do
     if [[ -d "$include" ]]; then
-      CGO_CFLAGS+=" -I$include"
+      # ROS dependency headers such as dds/features.h must not shadow libc headers.
+      CGO_CFLAGS+=" -idirafter $include"
     fi
   done
   if [[ -d "$prefix/lib" ]]; then

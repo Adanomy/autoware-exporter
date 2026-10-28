@@ -1,6 +1,7 @@
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import tarfile
 import tempfile
 import unittest
@@ -65,6 +66,25 @@ class NativeReleaseTests(unittest.TestCase):
         metadata = dict(self.metadata, snapshot=True)
         result = release.target_metadata(metadata, "humble", "arm64", "custom-autoware:local")
         self.assertEqual(result["target"]["ros_image"], "custom-autoware:local")
+
+    def test_container_check_waits_for_an_initialized_ros_context(self):
+        pending = subprocess.CompletedProcess([], 0, stdout='autoware_ros_context_up{vehicle="release_check"} 0\n')
+        ready = subprocess.CompletedProcess([], 0, stdout='autoware_ros_context_up{vehicle="release_check"} 1\n')
+        with patch.object(release, "command", return_value="container-id"):
+            with patch.object(release.subprocess, "run", side_effect=[pending, ready, subprocess.CompletedProcess([], 0)]) as run:
+                with patch.object(release.time, "sleep"):
+                    release.verify_container("native-image")
+        self.assertEqual(run.call_args_list[-1].args[0], ["docker", "rm", "-f", "container-id"])
+
+    def test_container_check_rejects_http_health_without_ros_and_cleans_up(self):
+        pending = subprocess.CompletedProcess([], 0, stdout='autoware_ros_context_up{vehicle="release_check"} 0\n')
+        logs = subprocess.CompletedProcess([], 0, stdout="", stderr="DDS configuration is unreadable")
+        with patch.object(release, "command", return_value="container-id"):
+            with patch.object(release.subprocess, "run", side_effect=[pending] * 40 + [logs, subprocess.CompletedProcess([], 0)]) as run:
+                with patch.object(release.time, "sleep"):
+                    with self.assertRaisesRegex(ValueError, "DDS configuration is unreadable"):
+                        release.verify_container("native-image")
+        self.assertEqual(run.call_args_list[-1].args[0], ["docker", "rm", "-f", "container-id"])
 
     def test_assembly_produces_a_complete_verified_release(self):
         source = self.make_parts()
