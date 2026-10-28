@@ -16,7 +16,7 @@ ROS 2 C libraries through project-owned CGO bindings.
 [![Adanomy](docs/images/buttons/adanomy.svg)](https://adanomy.com/)
 [![Releases](docs/images/buttons/releases.svg)](https://github.com/Adanomy/autoware-exporter/releases)
 [![Metrics](docs/images/buttons/metrics.svg)](docs/metrics.md)
-[![Grafana](docs/images/buttons/grafana.svg)](grafana/README.md)
+[![Grafana](docs/images/buttons/grafana.svg)](https://grafana.com/grafana/dashboards/25976)
 [![Configuration](docs/images/buttons/configuration.svg)](#configuration)
 
 [![Autoware Exporter dashboard with vehicle states, component diagnostics, fail-safe state, speed, and published limits](docs/images/dashboard.png)](docs/images/dashboard-full.png)

@@ -1,15 +1,20 @@
 # Grafana
 
-Import [autoware-exporter.json](autoware-exporter.json) through
-**Dashboards → New → Import** and choose any folder. Select a **Prometheus**
-datasource, **Job**, **Instance**, and **Vehicles**. Jobs are discovered from
-`autoware_exporter_build_info`; the saved defaults select datasource UID
-`prometheus`, job `autoware-exporter`, and all instances and vehicles.
+Import dashboard ID **[25976](https://grafana.com/grafana/dashboards/25976)** or
+[autoware-exporter.json](autoware-exporter.json) through **Dashboards → New →
+Import** and choose any folder. Select a **Datasource**, **Job**, **Instance**,
+and **Vehicles**. Jobs are discovered from `autoware_exporter_build_info`;
+no scrape job name, datasource UID, vehicle name, or vehicle count is prescribed.
+The default All selection expands only the discovered Autoware jobs. Instance
+and job labels distinguish identically named vehicles from different exporters.
 
 [Full dashboard preview](../docs/images/dashboard-full.png).
 
-The dashboard refreshes every 15 seconds by default. It uses built-in Grafana
-panels only. The repository stores the finished browser export directly.
+Set the Prometheus datasource's scrape interval to match the actual Prometheus
+job. Query resolution and rate windows follow Grafana's datasource settings;
+the explicitly labeled ROS clock and heartbeat windows remain one minute.
+The dashboard refreshes every 15 seconds by default and uses built-in Grafana
+panels only. The repository stores the finished dashboard JSON directly.
 
 ## Vehicle and source state
 
@@ -41,8 +46,10 @@ ground-truth accuracy, mission completion, or safe motion. See
 
 Edit the dashboard in Grafana, then use **Export dashboard → Export as code →
 Download file** to replace `autoware-exporter.json`. Keep the title
-**Autoware Exporter** and review the exported changes before committing.
-The saved UID is `adanomy-autoware`; no generator is needed.
+**Autoware / Prometheus Exporter** and UID `autoware-exporter`. Clear saved
+datasource and deployment-specific variable selections, preserve discovery
+queries, and review the exported changes before committing. Publish a new
+revision under dashboard ID **25976** when updating the catalog copy.
 
 Rendered with Grafana **12.4.1** and Prometheus. CI checks JSON syntax; validate
 panel rendering and queries in Grafana after editing. Standard Go/process
