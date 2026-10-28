@@ -23,32 +23,38 @@ ROS 2 C libraries through project-owned CGO bindings.
 
 ## Quick start
 
-Build against an Autoware image that contains the same ROS libraries and message
-types as the monitored deployment. The default uses the public Autoware Jazzy
-runtime; override `ROS_IMAGE` for a matching installation:
+Start the exporter against an existing Autoware deployment. Replace
+`vehicle-01:0` with your vehicle name and ROS domain:
 
 ```sh
-docker build -t autoware-exporter:local .
-
 docker run -d \
   --name autoware-exporter \
   --restart unless-stopped \
   --network host \
-  autoware-exporter:local \
+  ghcr.io/adanomy/autoware-exporter:latest \
   --vehicle=vehicle-01:0
 ```
 
 <details>
 <summary>Docker Compose</summary>
 
-From the repository root:
+For a persistent deployment, save this as `compose.yaml`:
 
-```sh
-docker compose -f deploy/compose.yaml up -d --build
+```yaml
+services:
+  autoware-exporter:
+    image: ghcr.io/adanomy/autoware-exporter:latest
+    restart: unless-stopped
+    network_mode: host
+    command:
+      - --vehicle=vehicle-01:0
 ```
 
-Edit the service's `command` list to select the vehicles and ROS domains.
-View logs with `docker compose -f deploy/compose.yaml logs -f autoware-exporter`.
+```sh
+docker compose up -d
+```
+
+View logs with `docker compose logs -f autoware-exporter`.
 
 </details>
 
@@ -63,6 +69,10 @@ Host networking is intended for Linux hosts. DDS discovery and routing must
 already work between the exporter and the monitored ROS graphs. The exporter
 subscribes to topics and never publishes commands, sets routes, or changes
 vehicle state.
+
+The `latest` tag follows the newest stable exporter release and selects Jazzy.
+Use `latest-humble` for Humble and a version tag or image digest to keep a
+deployment fixed.
 
 Release builds use separate **Humble** and **Jazzy** artifacts for Linux
 amd64/arm64. Each binary needs the matching ROS/Autoware libraries recorded in
@@ -117,8 +127,8 @@ or bridge ROS domains.
 
 Logs are written to stderr. Add `--log.format=json` for structured logs or
 `--log.level=debug` for troubleshooting. Print all options with
-`docker run --rm autoware-exporter:local --help`; use `--version` to print build
-information and native ROS availability.
+`docker run --rm ghcr.io/adanomy/autoware-exporter:latest --help`; use `--version`
+to print build information and native ROS availability.
 
 ## Compatibility
 
