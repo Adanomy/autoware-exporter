@@ -1,0 +1,4 @@
+{
+  "humble": "ghcr.io/autowarefoundation/autoware:universe-humble@sha256:aa50d6370709b9f4d73c777cf22468218e4b9454d9dc844a537db26746616baf",
+  "jazzy": "ghcr.io/autowarefoundation/autoware:universe-jazzy@sha256:e7904537b72333967a4a9c3849f7f1c7facd7dea6dd9b617d7c505ebce598d86"
+}

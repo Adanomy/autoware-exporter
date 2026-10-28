@@ -1,0 +1,85 @@
+{
+  "operation_mode": {
+    "mode": {"$constant": "autoware_adapi_v1_msgs/msg/OperationModeState.AUTONOMOUS"},
+    "is_autoware_control_enabled": true,
+    "is_in_transition": false,
+    "is_stop_mode_available": true,
+    "is_autonomous_mode_available": true,
+    "is_local_mode_available": true,
+    "is_remote_mode_available": true
+  },
+  "localization_state": {"state": {"$constant": "autoware_adapi_v1_msgs/msg/LocalizationInitializationState.INITIALIZED"}},
+  "route_state": {"state": {"$constant": "autoware_adapi_v1_msgs/msg/RouteState.SET"}},
+  "motion_state": {"state": {"$constant": "autoware_adapi_v1_msgs/msg/MotionState.MOVING"}},
+  "mrm_state": {
+    "state": {"$constant": "autoware_adapi_v1_msgs/msg/MrmState.NORMAL"},
+    "behavior": {"$constant": "autoware_adapi_v1_msgs/msg/MrmState.NONE"}
+  },
+  "emergency_holding": {"is_holding": true},
+  "clock": {"clock": {"sec": 12, "nanosec": 500000000}},
+  "heartbeat": {"seq": 42},
+  "kinematics": {
+    "pose": {"pose": {"pose": {"position": {"x": 12.0, "y": -3.0}, "orientation": {"w": 1.0}}}},
+    "twist": {"twist": {"twist": {"linear": {"x": 3.0, "y": 4.0}, "angular": {"z": 0.25}}}},
+    "accel": {"accel": {"accel": {"linear": {"x": 1.5}}}}
+  },
+  "vehicle_status": {
+    "steering_tire_angle": 0.25,
+    "gear": {"status": {"$constant": "autoware_adapi_v1_msgs/msg/Gear.DRIVE"}},
+    "turn_indicators": {"status": {"$constant": "autoware_adapi_v1_msgs/msg/TurnIndicators.LEFT"}},
+    "hazard_lights": {"status": {"$constant": "autoware_adapi_v1_msgs/msg/HazardLights.DISABLE"}}
+  },
+  "doors": {"doors": [{"status": {"$constant": "autoware_adapi_v1_msgs/msg/DoorStatus.CLOSED"}}]},
+  "diagnostics_struct": {"id": "compatibility", "nodes": [{"path": "/compatibility/component"}], "diags": []},
+  "diagnostics_status": {"id": "compatibility", "nodes": [{"level": {"$byte": 2}}], "diags": []},
+  "hazard_status": {"status": {"level": 1, "emergency": false, "emergency_holding": true}},
+  "command_velocity": {"velocity": 6.0},
+  "command_acceleration": {"acceleration": 1.25},
+  "command_steering": {"steering_tire_angle": 0.5, "steering_tire_velocity": 0.125},
+  "command_pedals": {"throttle": 0.4, "brake": 0.1},
+  "control_command": {"longitudinal": {"is_defined_jerk": true, "jerk": 0.75}},
+  "control_errors": {"error": {"lateral_error": 0.125, "longitudinal_error": -0.25, "heading_error": 0.05, "vehicle_velocity_error": -0.5}},
+  "driving_status": {"longitudinal_jerk": {"data": 0.5}, "lateral_jerk": {"data": 0.25}},
+  "control_evaluator": {"metric_array": [
+    {"name": "goal_longitudinal_deviation", "unit": "m", "value": "-2.5"},
+    {"name": "goal_yaw_deviation", "unit": "rad", "value": "0.125"},
+    {"name": "lateral_deviation_centerline", "unit": "m", "value": "0.25"},
+    {"name": "left_uncrossable_boundary_distance", "unit": "m", "value": "-0.5"},
+    {"name": "left_uncrossable_boundary_distance_count", "unit": "count", "value": "2"}
+  ]},
+  "emergency_command": {"emergency": false},
+  "aeb_metrics": {"metric_array": [{"name": "decision", "unit": "string", "value": "brake"}]},
+  "aeb_rss_distance": {"data": -2.5},
+  "ndt_score": {"data": 1.5},
+  "ndt_voxel_score": {"data": 0.75},
+  "ndt_iterations": {"data": 7},
+  "ndt_execution": {"data": 25.0},
+  "ndt_covariance": {"pose": {"pose": {"orientation": {"w": 1.0}}}},
+  "objects": {"objects": [{"classification": [{"label": {"$constant": "autoware_perception_msgs/msg/ObjectClassification.CAR"}, "probability": 0.75}]}]},
+  "perception_analytics": {"metric_array": [
+    {"name": "meas_to_tracked_latency", "unit": "ms", "value": "20"},
+    {"name": "prediction_latency", "unit": "ms", "value": "30"},
+    {"name": "total_latency", "unit": "ms", "value": "50"}
+  ]},
+  "traffic_signals": {"traffic_light_groups": [{"elements": [{"color": {"$constant": "autoware_perception_msgs/msg/TrafficLightElement.RED"}, "shape": 1, "status": 2, "confidence": 0.75}]}]},
+  "processing_localization_filter": {"data": 10.0},
+  "processing_lateral_controller": {"data": 10.0},
+  "processing_longitudinal_controller": {"data": 10.0},
+  "processing_mission_planner": {"data": 10.0},
+  "processing_object_tracker": {"data": 10.0},
+  "processing_object_prediction": {"data": 10.0},
+  "pipeline_latency": {"data": 100.0},
+  "remaining_route": {"remaining_distance": 125.0, "remaining_time": 30.0},
+  "planning_evaluator": {"metric_array": [
+    {"name": "stability/mean", "unit": "m", "value": "0.25"},
+    {"name": "length/mean", "unit": "m", "value": "20"},
+    {"name": "duration/mean", "unit": "s", "value": "4"},
+    {"name": "steer_change_count/count_in_duration", "unit": "count", "value": "2"},
+    {"name": "obstacle_ttc/worst", "unit": "s", "value": "1.25"}
+  ]},
+  "velocity_factors": {"factors": [{"behavior": "traffic-signal", "status": 2, "distance": 3.0}]},
+  "steering_factors": {"factors": [{"behavior": "start-planner", "direction": 1, "status": 1, "distance": [2.0, 4.0]}]},
+  "velocity_limit": {"max_velocity": 8.0},
+  "closest_velocity_limit": {"data": 7.0},
+  "energy": {"energy": 0.75}
+}

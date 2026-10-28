@@ -1,0 +1,35 @@
+{
+  "0.51": {
+    "universe": "0.51.0",
+    "core": "1.8.0",
+    "repositories": {
+      "autowarefoundation/autoware_universe": {"tag": "0.51.0", "commit": "d4d260983d357e1b2b34291d91933f9f4b53bf94"},
+      "autowarefoundation/autoware_msgs": {"tag": "1.12.0", "commit": "7025d8f7df0ead43037d86f8a4ffda8b397d0293"},
+      "autowarefoundation/autoware_adapi_msgs": {"tag": "1.9.1", "commit": "6c3faf2311db65dbd37a78904c9b96edad4b3bbd"},
+      "autowarefoundation/autoware_internal_msgs": {"tag": "1.12.1", "commit": "094122d37e56c7bfd8f3385307d345cfdb2123e6"},
+      "tier4/tier4_autoware_msgs": {"tag": "v0.58.0", "commit": "b9c385197baf1a2e77f088bea46e7287cd3ec367"}
+    }
+  },
+  "0.52": {
+    "universe": "0.52.0",
+    "core": "1.9.0",
+    "repositories": {
+      "autowarefoundation/autoware_universe": {"tag": "0.52.0", "commit": "6e477c645efec33f7909095eea684474e97f5e3d"},
+      "autowarefoundation/autoware_msgs": {"tag": "1.13.0", "commit": "bb8e7bf5d97168663e0e7b357929e4fcdbd3a967"},
+      "autowarefoundation/autoware_adapi_msgs": {"tag": "1.9.2", "commit": "35a7aeb97dfbbbc363c49fc032ded0c8ba172e24"},
+      "autowarefoundation/autoware_internal_msgs": {"tag": "1.13.0", "commit": "ec3722332b6c9e158ddd43a8d7ba444bfe42ba01"},
+      "tier4/tier4_autoware_msgs": {"tag": "v0.70.0-rc", "commit": "00d0ddcb4763e64128c910628a1891816b86844b"}
+    }
+  },
+  "0.53": {
+    "universe": "0.53.1",
+    "core": "1.10.0",
+    "repositories": {
+      "autowarefoundation/autoware_universe": {"tag": "0.53.1", "commit": "815d3f1b5c532eaccab33f0479819af8535919d2"},
+      "autowarefoundation/autoware_msgs": {"tag": "1.13.0", "commit": "bb8e7bf5d97168663e0e7b357929e4fcdbd3a967"},
+      "autowarefoundation/autoware_adapi_msgs": {"tag": "1.9.2", "commit": "35a7aeb97dfbbbc363c49fc032ded0c8ba172e24"},
+      "autowarefoundation/autoware_internal_msgs": {"tag": "1.16.0", "commit": "4144effa727d194554ad78d343683201bbbbc427"},
+      "tier4/tier4_autoware_msgs": {"tag": "1.0.0-alpha", "commit": "ed0b9e86ff72598178c9030ec1b52515ef98d69a"}
+    }
+  }
+}

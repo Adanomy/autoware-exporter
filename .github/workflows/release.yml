@@ -1,0 +1,228 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
+
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.progress.outputs.published }}
+      image: ${{ steps.metadata.outputs.image }}
+      revision: ${{ steps.metadata.outputs.revision }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Release metadata
+        id: metadata
+        run: |
+          printf 'image=ghcr.io/%s\n' "${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+          printf 'revision=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Check for a completed release
+        id: progress
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE: ${{ steps.metadata.outputs.image }}
+          REVISION: ${{ steps.metadata.outputs.revision }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+          sys.path.insert(0, 'ci')
+          from publish_release import GitHub
+          api = GitHub(os.environ['GITHUB_REPOSITORY'], os.environ['REVISION'])
+          api.verify_tag(os.environ['GITHUB_REF_NAME'])
+          release = api.get_release(os.environ['GITHUB_REF_NAME'])
+          published = bool(release and not release['draft'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'published={str(published).lower()}\n')
+          PY
+      - name: Verify an existing published release
+        if: steps.progress.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE: ${{ steps.metadata.outputs.image }}
+          REVISION: ${{ steps.metadata.outputs.revision }}
+        run: |
+          gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --dir "$RUNNER_TEMP/existing-release"
+          python3 ci/publish_release.py prepare --artifacts "$RUNNER_TEMP/existing-release" \
+            --tag "$GITHUB_REF_NAME" --image "$IMAGE" --revision "$REVISION"
+
+  native:
+    needs: [prepare, validate]
+    if: needs.prepare.outputs.published != 'true'
+    name: Release / ${{ matrix.ros }} / ${{ matrix.platform.arch }}
+    runs-on: ${{ matrix.platform.runner }}
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        ros: [humble, jazzy]
+        platform:
+          - {runner: ubuntu-24.04, arch: amd64}
+          - {runner: ubuntu-24.04-arm, arch: arm64}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Build and reproduce native release artifacts
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+          ROS_DISTRO: ${{ matrix.ros }}
+          ARCH: ${{ matrix.platform.arch }}
+        run: |
+          python3 ci/release.py --ros-distro "$ROS_DISTRO" --arch "$ARCH" --verify-reproducible \
+            --container-image "$IMAGE:$GITHUB_REF_NAME-$ROS_DISTRO-$ARCH" --output dist/native
+      - name: Upload native release artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: native-release-${{ matrix.ros }}-${{ matrix.platform.arch }}
+          path: dist/native/
+          if-no-files-found: error
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Publish native container
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+          ROS_DISTRO: ${{ matrix.ros }}
+          ARCH: ${{ matrix.platform.arch }}
+        run: docker push "$IMAGE:$GITHUB_REF_NAME-$ROS_DISTRO-$ARCH"
+
+  release:
+    needs: [prepare, native]
+    if: needs.prepare.outputs.published != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: native-release-*
+          merge-multiple: true
+          path: dist/parts
+      - name: Assemble and verify release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE: ${{ needs.prepare.outputs.image }}
+          REVISION: ${{ needs.prepare.outputs.revision }}
+        run: |
+          python3 ci/release.py --assemble dist/parts --output dist/release
+          python3 ci/publish_release.py prepare --artifacts dist/release \
+            --tag "$GITHUB_REF_NAME" --image "$IMAGE" --revision "$REVISION"
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        with:
+          version: v0.38.1
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Publish multi-platform containers
+        id: containers
+        env:
+          IMAGE: ${{ needs.prepare.outputs.image }}
+        run: |
+          for ros in humble jazzy; do
+            docker buildx imagetools create --tag "$IMAGE:$GITHUB_REF_NAME-$ros" \
+              --tag "$IMAGE:${GITHUB_REF_NAME#v}-$ros" \
+              "$IMAGE:$GITHUB_REF_NAME-$ros-amd64" "$IMAGE:$GITHUB_REF_NAME-$ros-arm64"
+            digest=$(docker buildx imagetools inspect "$IMAGE:$GITHUB_REF_NAME-$ros" --format '{{json .Manifest}}' | python3 -c 'import json, sys; print(json.load(sys.stdin)["digest"])')
+            printf '%s=%s\n' "$ros" "$digest" >> "$GITHUB_OUTPUT"
+          done
+          docker buildx imagetools create --tag "$IMAGE:$GITHUB_REF_NAME" \
+            --tag "$IMAGE:${GITHUB_REF_NAME#v}" "$IMAGE:$GITHUB_REF_NAME-jazzy"
+      - name: Publish or resume GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE: ${{ needs.prepare.outputs.image }}
+          REVISION: ${{ needs.prepare.outputs.revision }}
+          JAZZY_DIGEST: ${{ steps.containers.outputs.jazzy }}
+          HUMBLE_DIGEST: ${{ steps.containers.outputs.humble }}
+        run: |
+          python3 ci/publish_release.py publish --artifacts dist/release \
+            --tag "$GITHUB_REF_NAME" --image "$IMAGE" --revision "$REVISION" \
+            --digest "$JAZZY_DIGEST" --humble-digest "$HUMBLE_DIGEST"
+
+  latest:
+    needs: [prepare, validate, release]
+    if: always() && !cancelled() && needs.prepare.result == 'success' && needs.validate.result == 'success' && (needs.release.result == 'success' || needs.prepare.outputs.published == 'true')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    concurrency:
+      group: release-container-latest
+      cancel-in-progress: false
+    steps:
+      - name: Select latest stable release
+        id: latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --paginate "repos/$GITHUB_REPOSITORY/releases" \
+            --jq '.[] | select(.draft == false and .prerelease == false) | .tag_name' \
+            > "$RUNNER_TEMP/stable-release-tags"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import re
+          pattern = re.compile(r"v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)", re.ASCII)
+          tags = [tag for tag in (Path(os.environ['RUNNER_TEMP']) / 'stable-release-tags').read_text().splitlines() if pattern.fullmatch(tag)]
+          if not tags:
+              raise SystemExit('No published stable release is available for the latest image tag')
+          tag = max(tags, key=lambda value: tuple(map(int, value[1:].split('.'))))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"image=ghcr.io/{os.environ['GITHUB_REPOSITORY'].lower()}\ntag={tag}\n")
+          PY
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        with:
+          version: v0.38.1
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Update latest image tags
+        env:
+          IMAGE: ${{ steps.latest.outputs.image }}
+          TAG: ${{ steps.latest.outputs.tag }}
+        run: |
+          for ros in humble jazzy; do
+            docker buildx imagetools create --tag "$IMAGE:latest-$ros" "$IMAGE:$TAG-$ros"
+          done
+          docker buildx imagetools create --tag "$IMAGE:latest" "$IMAGE:$TAG-jazzy"
