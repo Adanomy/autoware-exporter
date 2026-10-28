@@ -27,7 +27,7 @@ type Client interface {
 
 type Dial func(ros2.Config) (Client, error)
 
-var errPublisherChanged = errors.New("notification publisher changed")
+var errNotificationRefresh = errors.New("notification subscriptions need refresh")
 
 type Options struct {
 	PollInterval  time.Duration
@@ -145,7 +145,7 @@ func (m *Manager) runVehicle(ctx context.Context, index int) {
 		if ctx.Err() != nil {
 			return
 		}
-		if errors.Is(err, errPublisherChanged) {
+		if errors.Is(err, errNotificationRefresh) {
 			logger.Info("refreshing notification subscriptions", "reason", err)
 			continue
 		}
@@ -161,6 +161,7 @@ func (m *Manager) collect(ctx context.Context, index int, client Client, logger 
 	subscriptionErrors := make(map[string]string)
 	messageErrors := make(map[string]string)
 	publisherFingerprints := make(map[string]string)
+	publisherRefresh := make(map[string]bool)
 	for ctx.Err() == nil {
 		now := time.Now()
 		if !now.Before(nextSubscriptions) {
@@ -198,10 +199,10 @@ func (m *Manager) collect(ctx context.Context, index int, client Client, logger 
 					fingerprint, err = client.PublisherFingerprint(source.Spec.Topic)
 					if err == nil && fingerprint != "" {
 						previous := publisherFingerprints[key]
-						if previous != "" && previous != fingerprint {
-							// Recreate the context to request the new publisher's retained
-							// samples, including any already received before this graph poll.
-							return fmt.Errorf("%w: %s", errPublisherChanged, source.Spec.Topic)
+						if publisherRefresh[key] || previous != "" && previous != fingerprint {
+							// Request retained samples again after publisher replacement or
+							// invalidation, even when the same publisher becomes available.
+							return fmt.Errorf("%w: %s", errNotificationRefresh, source.Spec.Topic)
 						}
 						publisherFingerprints[key] = fingerprint
 					}
@@ -214,6 +215,9 @@ func (m *Manager) collect(ctx context.Context, index int, client Client, logger 
 				}
 				if count == 0 && current.Publishers > 0 {
 					current.Data = nil
+					if current.Spec.Latched {
+						publisherRefresh[key] = true
+					}
 				}
 				current.Publishers = count
 				m.snapshots[index].Sources[key] = current

@@ -4,6 +4,10 @@ These are the unprefixed topic names. A configured vehicle namespace prefixes ea
 Type-support libraries for the message types must be installed in the native runtime.
 Optional missing sources are retried independently.
 
+Selecting `routing` also subscribes to `route_state` to validate remaining-route
+distance and time. After a publisher disappears or discovery fails, notification
+subscriptions are refreshed once discovery recovers to receive retained state again.
+
 | Key | Group | Topic | Message type | Freshness |
 | --- | --- | --- | --- | --- |
 | `operation_mode` | `state` | `/api/operation_mode/state` | `autoware_adapi_v1_msgs/msg/OperationModeState` | Notification; no receive-age expiry |

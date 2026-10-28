@@ -116,7 +116,9 @@ func selectedSources(groups []string, maxAge time.Duration) ([]telemetry.Source,
 	}
 	var sources []telemetry.Source
 	for _, source := range telemetry.Sources() {
-		if len(groups) > 0 && !slices.Contains(groups, source.Group) {
+		// Remaining-route estimates require the route state even without the state group.
+		dependency := source.Key == "route_state" && slices.Contains(groups, "routing")
+		if len(groups) > 0 && !slices.Contains(groups, source.Group) && !dependency {
 			continue
 		}
 		if !source.Latched {
