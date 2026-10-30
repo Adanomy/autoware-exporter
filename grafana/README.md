@@ -6,10 +6,15 @@ Import** and choose any folder. Select a **Datasource**, **Job**, **Instance**,
 and **Vehicles**. Jobs are discovered from `autoware_exporter_build_info`;
 no scrape job name, datasource UID, vehicle name, or vehicle count is prescribed.
 The default All selection expands only the discovered Autoware jobs. Vehicle
-panels show vehicle names only. Use the Job and Instance filters when names
-overlap between exporters; underlying series and table joins retain both labels.
+panels display vehicle names. Queries identify vehicles by **Job + vehicle name**.
+Keep both names stable across deployments, and keep **Instance = All** to include
+history across exporter replacements. Different jobs remain separate internally;
+use the Job filter to select a source when vehicle names overlap.
+Renaming a job or vehicle creates a different logical source; unrelated vehicles
+must not share the same name within one job.
 
-[Full dashboard preview](../docs/images/dashboard-full.png).
+[Full dashboard preview](../docs/images/dashboard-full.png) ·
+[Localization history preview](../docs/images/dashboard-localization.png).
 
 Set the Prometheus datasource's scrape interval to match the actual Prometheus
 job. Query resolution and rate windows follow Grafana's datasource settings;
@@ -29,6 +34,20 @@ Current-state panels require a successful scrape and use instant queries.
 Missing measurements remain **No data**. Optional topics, empty event arrays,
 and unavailable publishers are distinct conditions. `/healthz` checks only the
 HTTP process; an initialized ROS context does not prove fresh vehicle data.
+
+Vehicle panels discard exporter instance and deployment labels only after
+computing each source's value and checking its scrape status. Concurrent reports
+are combined only when they agree. Categorical panels, including **Localization
+status history**, show **CONFLICT** on disagreement; numeric history has a gap.
+**Conflicting exporter reports** in ROS source diagnostics lists current raw
+disagreements by metric and semantic labels. Optional distances can remain absent
+even when a factor is present. An empty conflict or issue table does not prove
+that data is available. Select an Instance to inspect one exporter.
+
+Topic, diagnostic path, covariance source, axis, factor, signal and other metric
+dimensions remain distinct. Rates, clock progression and heartbeat changes are
+computed on the original exporter series before combining them. Exporter and Go
+runtime panels retain their per-process identity.
 
 ## Time and interpretation
 
