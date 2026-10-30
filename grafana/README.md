@@ -13,8 +13,7 @@ use the Job filter to select a source when vehicle names overlap.
 Renaming a job or vehicle creates a different logical source; unrelated vehicles
 must not share the same name within one job.
 
-[Full dashboard preview](../docs/images/dashboard-full.png) ·
-[Localization history preview](../docs/images/dashboard-localization.png).
+[Full dashboard preview](../docs/images/dashboard-full.png).
 
 Set the Prometheus datasource's scrape interval to match the actual Prometheus
 job. Query resolution and rate windows follow Grafana's datasource settings;
