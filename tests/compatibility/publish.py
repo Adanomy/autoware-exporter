@@ -42,11 +42,15 @@ def main():
                              durability=DurabilityPolicy.TRANSIENT_LOCAL if source["Latched"] else DurabilityPolicy.VOLATILE)
             publisher = node.create_publisher(message_type, "/compatibility" + source["Topic"], qos)
             publishers.append((publisher, message))
-        print("READY", flush=True)
+        published = False
 
         def publish():
+            nonlocal published
             for publisher, message in publishers:
                 publisher.publish(message)
+            if not published:
+                print("READY", flush=True)
+                published = True
 
         node.create_timer(0.1, publish)
         rclpy.spin(node)

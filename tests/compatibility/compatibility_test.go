@@ -46,28 +46,32 @@ func TestAutowareMessages(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	logPath := filepath.Join(t.TempDir(), "publisher.log")
-	logFile, err := os.Create(logPath)
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { _ = logFile.Close() })
 	ctx, cancel := context.WithTimeout(t.Context(), time.Minute)
 	t.Cleanup(cancel)
-	publisher := exec.CommandContext(ctx, "python3", "publish.py")
-	publisher.Stdin = bytes.NewReader(payload)
-	publisher.Stdout, publisher.Stderr = logFile, logFile
-	if err := publisher.Start(); err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() {
-		_ = publisher.Process.Kill()
-		_ = publisher.Wait()
-		if t.Failed() {
-			logs, _ := os.ReadFile(logPath)
-			t.Logf("publisher output:\n%s", logs)
+	// An isolated sidecar can supply pinned upstream messages while this test
+	// runs inside the production runtime, which does not contain Python.
+	if os.Getenv("AUTOWARE_EXPORTER_EXTERNAL_PUBLISHER") != "1" {
+		logPath := filepath.Join(t.TempDir(), "publisher.log")
+		logFile, err := os.Create(logPath)
+		if err != nil {
+			t.Fatal(err)
 		}
-	})
+		t.Cleanup(func() { _ = logFile.Close() })
+		publisher := exec.CommandContext(ctx, "python3", "publish.py")
+		publisher.Stdin = bytes.NewReader(payload)
+		publisher.Stdout, publisher.Stderr = logFile, logFile
+		if err := publisher.Start(); err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() {
+			_ = publisher.Process.Kill()
+			_ = publisher.Wait()
+			if t.Failed() {
+				logs, _ := os.ReadFile(logPath)
+				t.Logf("publisher output:\n%s", logs)
+			}
+		})
+	}
 	manager, err := monitor.New([]ros2.Config{{Name: "compatibility", DomainID: 200, Namespace: "/compatibility"}},
 		sources, monitor.Options{PollInterval: 10 * time.Millisecond, RetryInterval: 100 * time.Millisecond},
 		slog.New(slog.NewTextHandler(io.Discard, nil)))

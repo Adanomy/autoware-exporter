@@ -22,8 +22,13 @@ and CLI help. It cannot monitor ROS. Native builds use `CGO_ENABLED=1` and
 
 ## Container build
 
-The default Dockerfile uses a public Autoware Jazzy image pinned by digest.
-Override it with a compatible image for your deployment:
+The default Dockerfile builds against a public Autoware Jazzy image pinned by
+digest. The final image contains the exporter, the same Ubuntu system libraries,
+ROS/DDS runtime and installed type support needed by the production source list.
+It does not inherit the full Autoware filesystem or its image layers. Bash and
+curl remain available for the entrypoint and existing HTTP healthchecks.
+Override the build image for your deployment; its ROS distribution is detected
+when preparing the runtime:
 
 ```sh
 docker build --build-arg ROS_IMAGE=your-autoware-image:humble \
@@ -32,9 +37,20 @@ docker build --build-arg ROS_IMAGE=your-autoware-image:humble \
 
 The image must contain ROS 2 and the message type-support libraries needed by
 your selected sources. Missing optional packages disable only their own sources.
-The entrypoint sources the image's ROS/Autoware environment before executing
+Release builds also pass `ROS_DISTRO` to record it in the container metadata and
+check that it matches the selected build image; this argument is optional for
+manual builds. The entrypoint always loads the actual distribution from the
+prepared runtime environment.
+The runtime selection includes dlopen-loaded middleware, logging and message
+libraries, their transitive ELF dependencies, ament indexes, CA certificates
+and license notices. The build checks type-support getters inside the trimmed
+filesystem. `/usr/local/share/autoware-exporter/runtime.json` records selected
+libraries and message types, including optional types absent from the build
+image. The entrypoint loads the selected runtime environment before executing
 the exporter. The final image runs as UID/GID 65532 and uses the middleware's
-default DDS configuration. To provide your own Cyclone DDS configuration, mount
+default DDS configuration. `CYCLONEDDS_URI` defaults to an empty value; the build
+image's Cyclone profile is not inherited. An explicitly empty environment value
+also remains empty. To provide your own Cyclone DDS configuration, mount
 it at a readable path and set `CYCLONEDDS_URI` with `docker run -e` or Compose.
 
 ## Testing
@@ -65,8 +81,12 @@ inside [the isolated compatibility containers](../tests/compatibility/README.md)
 Version tags use `vMAJOR.MINOR.PATCH`. CI builds Linux amd64/arm64 artifacts for
 Humble and Jazzy, verifies reproducibility, and publishes checksummed archives,
 the Grafana dashboard, build metadata, and matching container images.
-Branch CI also builds both ROS images and checks ROS initialization as a
-non-root user with a read-only filesystem, isolated from existing ROS graphs.
+Push and pull-request CI runs Go/tooling checks and four native smoke tests
+(Humble/Jazzy on amd64/arm64). Each smoke test builds once and checks ROS
+initialization as a non-root user with a read-only filesystem, isolated from
+existing ROS graphs. Manual CI runs and release validation additionally run the
+full twelve-entry compatibility matrix and reproducibility checks. Release
+publication waits for full validation.
 
 Archives contain a native binary, its build metadata, the license, and usage
 documentation. They need the matching ROS/Autoware environment; the recorded

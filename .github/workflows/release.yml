@@ -15,6 +15,8 @@ concurrency:
 jobs:
   validate:
     uses: ./.github/workflows/ci.yml
+    with:
+      full_matrix: true
 
   prepare:
     runs-on: ubuntu-latest

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+  <transport_descriptors>
+    <transport_descriptor>
+      <transport_id>runtime_test_udp</transport_id>
+      <type>UDPv4</type>
+      <interfaceWhiteList><address>127.0.0.1</address></interfaceWhiteList>
+    </transport_descriptor>
+  </transport_descriptors>
+  <participant profile_name="runtime_test" is_default_profile="true">
+    <rtps>
+      <userTransports><transport_id>runtime_test_udp</transport_id></userTransports>
+      <useBuiltinTransports>false</useBuiltinTransports>
+      <defaultUnicastLocatorList>
+        <locator><udpv4><address>127.0.0.1</address></udpv4></locator>
+      </defaultUnicastLocatorList>
+      <builtin>
+        <metatrafficUnicastLocatorList>
+          <locator><udpv4><address>127.0.0.1</address></udpv4></locator>
+        </metatrafficUnicastLocatorList>
+        <initialPeersList>
+          <locator><udpv4><address>127.0.0.1</address></udpv4></locator>
+        </initialPeersList>
+      </builtin>
+    </rtps>
+  </participant>
+</profiles>

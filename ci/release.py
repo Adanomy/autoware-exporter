@@ -120,6 +120,8 @@ def target_metadata(metadata, ros, arch, image):
 
 
 def verify_container(image_name):
+    # Exercise the shipping image's default middleware/configuration so a baked
+    # deployment-specific DDS profile cannot be hidden by the smoke test.
     container = command(
         "docker", "run", "-d", "--network", "none", "--read-only", "--cap-drop", "ALL",
         "--security-opt", "no-new-privileges:true", "--tmpfs", "/tmp:rw,nosuid,nodev,noexec,size=64m",
@@ -144,6 +146,7 @@ def build_binary(metadata, image_name, fresh_cache=False):
     target = metadata["target"]
     args = ["docker", "buildx", "build", "--load", "--platform", f"linux/{target['arch']}",
             "--build-arg", f"ROS_IMAGE={target['ros_image']}",
+            "--build-arg", f"ROS_DISTRO={target['ros_distro']}",
             "--build-arg", f"VERSION={metadata['version']}",
             "--build-arg", f"REVISION={metadata['revision']}",
             "--build-arg", f"SOURCE_DATE_EPOCH={metadata['source_date_epoch']}", "-t", image_name]

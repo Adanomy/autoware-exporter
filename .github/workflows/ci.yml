@@ -7,6 +7,12 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      full_matrix:
+        description: Run the full compatibility matrix and reproducibility checks
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -33,11 +39,35 @@ jobs:
       - name: Check dashboard JSON
         run: python3 -m json.tool grafana/autoware-exporter.json > /dev/null
       - name: Check compatibility helpers
-        run: python3 -m py_compile tests/compatibility/prepare_interfaces.py tests/compatibility/publish.py
+        run: python3 -m py_compile scripts/prepare-runtime.py tests/compatibility/prepare_interfaces.py tests/compatibility/publish.py tests/compatibility/check_runtime.py
       - name: Test release tooling
         run: python3 -m unittest discover -s ci
 
+  smoke:
+    if: ${{ github.event_name != 'workflow_dispatch' && !inputs.full_matrix }}
+    name: Native runtime smoke / ${{ matrix.ros }} / ${{ matrix.platform.arch }}
+    runs-on: ${{ matrix.platform.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        ros: [humble, jazzy]
+        platform:
+          - {runner: ubuntu-24.04, arch: amd64}
+          - {runner: ubuntu-24.04-arm, arch: arm64}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Build once and verify native runtime startup
+        run: python3 ci/release.py --snapshot --ros-distro ${{ matrix.ros }} --arch ${{ matrix.platform.arch }}
+
   preview:
+    if: ${{ github.event_name == 'workflow_dispatch' || inputs.full_matrix }}
     name: Native release preview / ${{ matrix.ros }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -63,14 +93,18 @@ jobs:
           if-no-files-found: error
 
   compatibility:
-    name: ROS ${{ matrix.ros }} / Universe ${{ matrix.autoware }}
-    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || inputs.full_matrix }}
+    name: ROS ${{ matrix.ros }} / Universe ${{ matrix.autoware }} / ${{ matrix.platform.arch }}
+    runs-on: ${{ matrix.platform.runner }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         ros: [humble, jazzy]
         autoware: ["0.51", "0.52", "0.53"]
+        platform:
+          - {runner: ubuntu-24.04, arch: amd64}
+          - {runner: ubuntu-24.04-arm, arch: arm64}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -83,3 +117,29 @@ jobs:
       - name: Test native transport, real Autoware messages and exported metrics
         run: |
           docker run --rm --network none autoware-exporter-compatibility
+      - name: Build production runtime and native compatibility test
+        env:
+          ROS_DISTRO: ${{ matrix.ros }}
+        run: |
+          ROS_IMAGE=$(python3 -c 'import json, os; print(json.load(open("ci/ros-images.json"))[os.environ["ROS_DISTRO"]])')
+          docker build --build-arg ROS_IMAGE="$ROS_IMAGE" --build-arg ROS_DISTRO="$ROS_DISTRO" \
+            --target build -t autoware-exporter-runtime-build .
+          docker build --build-arg ROS_IMAGE="$ROS_IMAGE" --build-arg ROS_DISTRO="$ROS_DISTRO" \
+            -t autoware-exporter-runtime .
+          mkdir -p runtime-tests
+          docker run --rm --network none --entrypoint /bin/bash \
+            -v "$PWD/runtime-tests:/runtime-tests" autoware-exporter-runtime-build -ec \
+            'source scripts/build-native.sh; go test -c -race -tags ros2 -o /runtime-tests/compatibility.test ./tests/compatibility'
+      - name: Test minimal runtime against pinned upstream messages
+        run: |
+          python3 tests/compatibility/check_runtime.py \
+            --ros-distro '${{ matrix.ros }}' --branch '${{ matrix.autoware }}' --arch '${{ matrix.platform.arch }}' \
+            --runtime-image autoware-exporter-runtime --fixture-image autoware-exporter-compatibility \
+            --test-binary "$PWD/runtime-tests/compatibility.test" --output runtime-tests/results
+      - name: Upload runtime verification evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: runtime-${{ matrix.ros }}-${{ matrix.autoware }}-${{ matrix.platform.arch }}
+          path: runtime-tests/results/
+          if-no-files-found: ignore
